@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  web:
+    build: ./docker/nginx
+    image: "my-project/nginx:latest"
+    ports:
+      - "8080:80"
+    volumes:
+      - "./webroot/:/var/www/html"
+    links:
+      - php-fpm:php-fpm
+  php-fpm:
+    build: ./docker/php-fpm
+    image: "my-project/php-fpm:latest"
+    volumes:
+      - "./webroot/:/var/www/html"
